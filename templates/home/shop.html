@@ -1,0 +1,180 @@
+{% extends 'basic.html' %} {% block body %}
+
+<body>
+    <!-- Product Shop Section Begin -->
+    <section class="product-shop spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">
+                    <div class="filter-widget">
+                        <h4 class="fw-title">Categories</h4>
+                        <ul class="filter-catagories">
+                            <li><a class='filter_ctg' id='Man'>Men</a></li>
+                            <li><a class='filter_ctg' id='Woman'>Women</a></li>
+                            <li><a class='filter_ctg' id='Kid'>Kids</a></li>
+                        </ul>
+                    </div>
+                    <div class="filter-widget">
+                        <h4 class="fw-title">Brand</h4>
+                        <div class="fw-brand-check">
+                            <div class="bc-item">
+                                <label for="bc-calvin">
+                                    Calvin Klein
+                                    <input type="checkbox" id="bc-calvin">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="bc-item">
+                                <label for="bc-diesel">
+                                    Diesel
+                                    <input type="checkbox" id="bc-diesel">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="bc-item">
+                                <label for="bc-polo">
+                                    Polo
+                                    <input type="checkbox" id="bc-polo">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="bc-item">
+                                <label for="bc-tommy">
+                                    Tommy Hilfiger
+                                    <input type="checkbox" id="bc-tommy">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter-widget">
+                        <h4 class="fw-title">Price</h4>
+                        <div class="filter-range-wrap">
+                            <div class="range-slider">
+                                <div class="price-input">
+                                    <input type="text" id="minamount">
+                                    <input type="text" id="maxamount">
+                                </div>
+                            </div>
+                            <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content" data-min="10" data-max="98">
+                                <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
+                                <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
+                                <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
+                            </div>
+                        </div>
+                        <a class="filter-btn" id='filterpricsebtn'>Filter</a>
+                    </div>
+
+                    <div class="filter-widget">
+                        <h4 class="fw-title">Size</h4>
+                        <div class="fw-size-choose">
+                            <div class="sc-item">
+                                <input type="radio" class='load_Sizes' value="small" id="s-size">
+                                <label for="s-size">s</label>
+                            </div>
+                            <div class="sc-item">
+                                <input type="radio" class='load_Sizes' value="medium" id="m-size">
+                                <label for="m-size">m</label>
+                            </div>
+                            <div class="sc-item">
+                                <input type="radio" class='load_Sizes' value="large" id="l-size">
+                                <label for="l-size">l</label>
+                            </div>
+                            <div class="sc-item">
+                                <input type="radio" class='load_Sizes' value="xsmall" id="xs-size">
+                                <label for="xs-size">xs</label>
+                            </div>
+                            <div class="sc-item">
+                                <input type="radio" class='load_Sizes' value="xlarge" id="xl-size">
+                                <label for="xl-size">xl</label>
+                            </div>
+                            <div class="sc-item">
+                                <input type="radio" class='load_Sizes' value="None" id="xl-size">
+                                <label for="all-size">All</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter-widget">
+                        <h4 class="fw-title">Tags</h4>
+                        <div class="fw-tags">
+                            <a class='tag_filter' id='Towel'>Towel</a>
+                            <a class='tag_filter' id='Shoes'>Shoes</a>
+                            <a class='tag_filter' id='Coat'>Coat</a>
+                            <a class='tag_filter' id='Dresses'>Dresses</a>
+                            <a class='tag_filter' id='Trousers'>Trousers</a>
+                            <a class='tag_filter' id='Men' s hats '>Men's hats</a>
+                                <a class='tag_filter' id='Backpack'>Backpack</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9 order-1 order-lg-2">
+                    <div class="product-show-option">
+                        <div class="row">
+                            <div class="col-lg-7 col-md-7">
+                                <div class="select-option">
+                                    <select class="sorting" id='sorting'>
+                                        <option value="">Default Sorting</option>
+                                        <option value="item_titile">Sort By Titile</option>
+                                        <option value="item_category">Sort By Catagory</option>
+                                        <option value="item_name">Sort by name</option>
+                                        <option value="item_FrashPricse">Sort by pricse</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-5 col-md-5 text-right">
+                                <p id='product_count'>{{items.count}} Product</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Product section Start-->
+                    <div class="product-list">
+                        <div class="row" id='product_list'>
+                            {% for item in items|dictsort:"item_titile" %}
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="product-item">
+                                    <div class="pi-pic">
+                                        <img src="/media/{{item.item_image}}" alt=""> {% if item.item_Discount_pricse != 0 %}
+                                        <div class="sale pp-sale">Sale</div>
+                                        {% endif %} {% if user.is_authenticated %}
+                                        <div class="icon">
+                                            <i class="icon_heart_alt"></i>
+                                        </div>
+                                        {% endif %}
+                                        <ul>
+                                            <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                            <li class="quick-view"><a href="/product/{{item.item_id}}">+ Quick View</a></li>
+                                            <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="pi-text">
+                                        <div class="catagory-name">{{item.item_name}}</div>
+                                        <a href="#">
+                                            <h5>{{item.item_titile}}</h5>
+                                        </a>
+                                        <div class="product-price">
+                                            {% if item.item_Discount_pricse != 0 %} ${{item.item_Discount_pricse}}
+                                            <span>${{item.item_FrashPricse}}</span> {% else %} ${{item.item_FrashPricse}} {% endif %}
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="loading-more">
+                        <i class="icon_loading"></i>
+                        <a href="#">
+                            Loading More
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Product Shop Section End -->
+
+
+</body>
+{% endblock %} {% block Js %} {% endblock %}

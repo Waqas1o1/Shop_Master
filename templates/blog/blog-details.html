@@ -1,0 +1,198 @@
+{% extends 'basic.html' %} {% block body %}
+
+<body>
+
+    <!-- Blog Details Section Begin -->
+    <section class="blog-details spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="blog-details-inner">
+                        <div class="blog-detail-title">
+                            <h2>{{Post.title}}</h2>
+                            <p>travel <span>- May 19, 2019</span></p>
+                        </div>
+                        <div class="blog-large-pic">
+                            <img src="/media/{{Post.cover_img}}" alt="">
+                        </div>
+                        {% autoescape off %}
+                        <div class="blog-detail-desc">
+                            <p>{{Post.Paragraph}}
+                            </p>
+                        </div>
+                        {% endautoescape %}
+                        <div class="blog-quote">
+                            <p>{% autoescape off %}“ {{Post.blog_quote_1}} {% endautoescape %}.” <span>- Steven Jobs</span></p>
+                        </div>
+                        {% if Post.blog_quote_2 %}
+                        <div class="blog-quote">
+                            {% autoescape off %}
+                            <p>“{{Post.blog_quote_1}}” <span>- Steven Jobs</span></p>{% endautoescape %}
+                        </div>
+                        {% endif %}
+                        <div class="blog-more">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <img src="/media/{{Post.img_1}}" alt="">
+                                </div>
+                                <div class="col-sm-4">
+                                    <img src="/media/{{Post.img_2}}" alt="">
+                                </div>
+                                <div class="col-sm-4">
+                                    <img src="/media/{{Post.img_3}}" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        {% autoescape off %}
+                        <p>{{Post.Paragraph}}</p>
+                        {% endautoescape %}
+                        <div class="tag-share">
+                            <div class="details-tag">
+                                <ul>
+                                    <li><i class="fa fa-tags"></i></li>
+                                    <li>Travel</li>
+                                    <li>Beauty</li>
+                                    <li>Fashion</li>
+                                </ul>
+                            </div>
+                            <div class="blog-share">
+                                <span>Share:</span>
+                                <div class="social-links">
+                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                    <a href="#"><i class="fa fa-google-plus"></i></a>
+                                    <a href="#"><i class="fa fa-instagram"></i></a>
+                                    <a href="#"><i class="fa fa-youtube-play"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="blog-post">
+                            <div class="row">
+                                <div class="col-lg-5 col-md-6">
+                                    <a href="/Blog/Blog/{{Previous_Post.id}}" class="prev-blog">
+                            {% if Previous_Post %}
+                                        <div class="pb-pic">
+                                            <i class="ti-arrow-left"></i>
+                                            <img src="/media/{{Previous_Post.cover_img}}" alt="">
+                                        </div>
+                                        <div class="pb-text">
+                                            <span>Previous Post:</span>
+                                            <h5>{{Previous_Post.title}}</h5>
+                                        </div>
+                            {% endif %}
+                                    </a>
+                                </div>
+                                <div class="col-lg-5 offset-lg-2 col-md-6">
+                                    <a href="/Blog/Blog/{{Next_Post.id}}" class="next-blog">
+                                       {% if Next_Post %}
+                                        <div class="nb-pic">
+                                            <img src="/media/{{Next_Post.cover_img}}" alt="">
+                                            <i class="ti-arrow-right"></i>
+                                        </div>
+                                        <div class="nb-text">
+                                            <span>Next Post:</span>
+                                            <h5>{{Next_Post.title}}</h5>
+                                        </div>
+                                        {% endif %}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="posted-by">
+                            <div class="pb-pic">
+                                <img src="/media/{{Post.auther_thumbnail}}" class='uk-thumbnav uk-border-pill' alt="">
+                            </div>
+                            <div class="pb-text">
+                                <a href="#">
+                                    <h5>{{Post.blog_auther}}</h5>
+                                </a>
+                                <p>{{Post.auther_bio}}</p>
+                            </div>
+                        </div>
+                        <!-- Comment Section starts -->
+                        <div class="customer-review-option">
+                            <h4>Comments</h4>
+                            <div class="comment-option" id='load_comments'>
+                             {% if comments %}
+                                {% for comment in comments %}
+                                <div class="co-item">
+                                    <div class="avatar-pic">
+                                        <span uk-icon="icon: check; ratio: 1"></span>
+                                    </div>
+
+                                    <h5> {{comment.user}} <span>  : </span>
+                                        <small>{{comment.timestamp}}</small> </h5>
+                                    <div class="at-reply"> {{comment.comment}} </div>
+                                </div>
+                                {% endfor %}
+                             {% else %}
+                                <small style='color:#e7ab3c'>No Comment's posted yet!<br> Be the First who comment...</small> 
+                             {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="leave-comment">
+                            {% if user.is_authenticated %}
+                            <h4>Leave A Comment</h4>
+                            <form class="comment-form" id='{{Post.id}}' method="POST ">
+                                {% csrf_token %}
+                                <div class="row ">
+                                    <div class="col-lg-12 ">
+                                        <h6><span uk-icon="icon: user; ratio: 0.8 "></span> {{user}}</h6>
+                                        <!-- <input type="text " name='name' placeholder="Name "> -->
+                                    </div>
+                                    <br>
+                                    <div class="col-lg-8 ">
+                                        <textarea placeholder="Messages " id='Blogcomment' name='comment' required class='form-control'></textarea>
+                                        <button type="submit " class="site-btn float-right ">Send message</button>
+                                    </div>
+                                </div>
+                            </form>
+                            {% endif %}
+                        </div>
+                        <!-- Comment section End -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+    <!-- Blog Details Section End -->
+
+</body>
+
+{% endblock %} {% block Js %}
+<!-- Load Comments -->
+<script>
+    $('.comment-form').on('submit', function(e) {
+        e.preventDefault()
+        let id = this.id
+        e.preventDefault();
+        $.ajax({
+            type: 'GET',
+            data: {
+                'comment': $('#Blogcomment').val()
+            },
+            url: '/Blog/blogcomment/' + id,
+            encode: true,
+            success: function(data) {
+                $('#Blogcomment').val('');
+                var comments = JSON.parse(data);
+                var str = '';
+                for (var comment in comments) {
+                    str += `<div class="co-item">
+                                        <div class="avatar-pic">
+                                            <span uk-icon="icon: check; ratio: 1"></span>
+                                        </div>
+                                        <h5> ${comments[comment]['Username']} <span>  : </span>
+                                            <small>${comments[comment]['timestamp']}</small> </h5>
+                                        <div class="at-reply">${comments[comment]['comment']}</div>
+                                    </div>`
+                }
+                document.getElementById('load_comments').innerHTML = str;
+                alert('Comment is posted successfuly');
+            }
+        })
+    })
+</script>
+{% endblock %}

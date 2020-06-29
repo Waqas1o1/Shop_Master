@@ -1,0 +1,44 @@
+{% extends 'basic.html' %}
+{% block body %}
+<body>
+    <!-- Faq Section Begin -->
+    <div class="faq-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="faq-accordin">
+                        <div class="accordion" id="accordionExample">
+                            {% for q in QA  %}
+                            <div class="card">
+                                <div class="card-heading">
+                                    <a  data-toggle="collapse" data-target="#collapse{{q.id}}">
+                                       <span  uk-icon="icon: question; ratio: 0.8"></span>{{q.Question}}
+                                    </a>
+                                </div>
+                                <div id="collapse{{q.id}}" class="collapse " data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <p><span  uk-icon="icon: check; ratio: 0.7"></span>{{q.Answer}}</p>
+                                        {% if q.Answer2 %}
+                                        <hr>
+                                        <p><span  uk-icon="icon: check; ratio: 0.7"></span>{{q.Answer2}}</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% if forloop.counter|divisibleby:2 and not  forloop.last %}
+                                <br>
+                                <br>
+                            {% endif %}
+                           
+
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Faq Section End -->
+</body>
+{% endblock  %}
+</html>

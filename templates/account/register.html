@@ -1,0 +1,44 @@
+{% extends 'basic.html' %}
+{% block body %}
+{% load static %}
+<body>
+ 
+    <!-- Register Section Begin -->
+    <div class="register-login-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="register-form">
+                        <h2>Register</h2>
+                        <form action="/Account/register/" method='POST'>
+                        {% csrf_token %}
+                             <div class="group-input">
+                                <label for="username">Username</label>
+                                <input type="text" id="username" name='username' required>
+                            </div>
+                            <div class="group-input">
+                                <label for="username">email address *</label>
+                                <input type="text" id="" name = 'email' required>
+                            </div>
+                            <div class="group-input">
+                                <label for="pass">Password *</label>
+                                <input type="text" id="pass" name='password' required>
+                            </div>
+                            <div class="group-input">
+                                <label for="con-pass">Confirm Password *</label>
+                                <input type="text" id="con-pass" name='conformpassword' required>
+                            </div>
+                            <button type="submit" class="site-btn register-btn">REGISTER</button>
+                        </form>
+                        <div class="switch-login">
+                            <a href="/Account/" class="or-login">Or Login</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Register Form Section End -->
+   
+</body>
+{% endblock  %}
